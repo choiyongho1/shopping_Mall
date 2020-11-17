@@ -1,5 +1,6 @@
-<%@ page language="java" contentType="UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+    <%@ page import="java.sql.*" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,10 +8,10 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<%
+<%
 		String a = "나는 스트링입니다!";
 	%>
-	<a> A느 무슨 글자일까요?? 정답은: <%=a%>
+	<a> A느 무슨 글자일까요?? 정답은: <%=a%> 
 	</a>
 
 	<% 
@@ -20,7 +21,7 @@ for (int i = 0; i < 5; i++) {
 	}
 	%><br><%
 }
-%> %>
+%>
 	<%
 	int q = 1;
 	int w = 1;
@@ -51,7 +52,7 @@ for (int i = 0; i < 5; i++) {
 	}
 %>
 </table>
-
+ 
 <table border="1">
 <% 
 	for (int i = 1; i <= 5; i++) {
