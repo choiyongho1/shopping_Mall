@@ -54,6 +54,75 @@ catch(Exception e)
 { 
     System.out.println(e);
 }
+%> 
+<%-- 문제 4 --%>
+ <table border = "1">
+	<tr>
+		<td>구매자명</td>
+		<td>구매금액</td>
+	</tr>
+<%
+try
+{
+
+    Class.forName("oracle.jdbc.driver.OracleDriver");
+    Connection con=DriverManager.getConnection(
+    "jdbc:oracle:thin:@localhost:1521:xe","SMC_USER","SMC_USER");
+    Statement stmt=con.createStatement();
+    Statement select_stmt=con.createStatement();
+    String select_query = "SELECT NAME, ORDER_PRICE FROM MEMBER, PAYMENT_HISTORY WHERE PAYMENT_HISTORY.MEMBER_ID = MEMBER.ID";
+    
+    ResultSet rs=stmt.executeQuery(select_query);
+    while(rs.next()) {
+        %><tr><%
+
+
+        %><td><%=rs.getString("NAME")%></td><%
+        %><td><%=rs.getInt("ORDER_PRICE")%></td><%
+
+        %></tr><%
+    }
+}
+catch(Exception e)
+{ 
+    System.out.println(e);
+}
+%> 
+</table>
+<table border = "1">
+<%
+try
+{
+
+    Class.forName("oracle.jdbc.driver.OracleDriver");
+    Connection con=DriverManager.getConnection(
+    "jdbc:oracle:thin:@localhost:1521:xe","SMC_USER","SMC_USER");
+    Statement stmt=con.createStatement();
+    Statement select_stmt=con.createStatement();
+    String select_query = "SELECT PAYMENT_HISTORY.ID AS PAYMENT_HISTORY_ID , MEMBER.NAME AS MEMBER_NAME, PRODUCT.NAME AS PRODUCT_NAME, ORDER_COUNT, ORDER_PRICE FROM PAYMENT_HISTORY, MEMBER, PRODUCT WHERE PAYMENT_HISTORY.PRODUCT_ID = PRODUCT.ID AND PAYMENT_HISTORY.MEMBER_ID = MEMBER.ID";
+    
+    ResultSet rs=select_stmt.executeQuery(select_query);
+    
+
+    while(rs.next()){
+        
+        String a = rs.getString("MEMBER_NAME");
+        String b = rs.getString("PRODUCT_NAME");
+        int c = rs.getInt("ORDER_COUNT");
+        int d = rs.getInt("ORDER_PRICE");
+        int z = rs.getInt("PAYMENT_HISTORY_ID");
+            String query = " INSERT INTO PURCHASE_LOG(ID, LOG) VALUES("+ z + ",'"+a+"님이 "+b+"상품 "+c+"개를"+d + "원에 구매하셨습니다. ')";
+            stmt.executeQuery(query);
+        }
+
+    con.close();
+
+}
+catch(Exception e)
+{ 
+    System.out.println(e);
+}
 %>
+</table>
 </body>
 </html>
