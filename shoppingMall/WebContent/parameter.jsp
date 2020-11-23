@@ -265,19 +265,17 @@ try
     Connection con=DriverManager.getConnection(
     "jdbc:oracle:thin:@localhost:1521:xe","SMC_USER","SMC_USER");
     Statement stmt=con.createStatement();
-    String query = "SELECT NAME, PRICE, STOCK, DESCRIPTION, ORIGIN FROM PRODUCT";
-    if (price_more != null) {
-        query += " WHERE PRICE >= " + price_more;
+    String query = "SELECT NAME, PRICE, STOCK, DESCRIPTION, ORIGIN FROM PRODUCT WHERE 1 = 1";
+    if (price_more != null && price_more.length() != 0) {
+        query += " AND PRICE >= " + price_more;
     }
-    if (price_less != null) {
+    if (price_less != null && price_less.length() != 0) {
         query += " AND PRICE <= " + price_less;
     }
-    if (origin_more != null) {
+    if (origin_more != null && origin_more.length() != 0) {
         query += " AND STOCK >= " + origin_more;
-    } else {
-    	origin_more = "";
     }
-    if (origin_less != null) {
+    if (origin_less != null && origin_less.length() != 0) {
         query += " AND STOCK <= " + origin_less;
     }
 System.out.println(query);
